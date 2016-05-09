@@ -1,0 +1,95 @@
+BACKLOG
+viability - inverse flow - generate the excel file from java objects using an excel template
+viability - standalone project? kill primefactors dependency?
+api simplification
+code update
+
+WIP=2
+
+CHANGELOG
+20160509 - v00.05 - released
+20151004 - 20151004 - 20160505 - v00.05 - suricata - feature - properties file
+20160505 - 20160509 - 20160509 - v00.05 - suricata - refactor - primefactors dependency killed
+20160505 - 20160505 - 20160505 - v00.05 - suricata - refactor - java 8 support
+20160505 - 20160505 - 20160505 - v00.05 - suricata - refactor - apache poi upgraded from 3.7 to 3.14
+20160505 - 20160505 - 20160505 - v00.05 - suricata - refactor - junit upgraded from 4.8.2 to 4.12
+
+v00.04 - suricata - api - TestExceptionExpected
+v00.04 - suricata - refactor - TestModulePopulationAlgorithm from class to enum
+v00.04 - suricata - api - move out TestCasesIterator
+v00.04 - suricata - spreadsheet - api - TestSourceSpreadSheetPool
+v00.04 - suricata - api - move in TestCasesIterator
+v00.04 - suricata - refactor - singleton TestSource Singleton
+
+v00.04 - arq - feature - ARQProperties
+v00.04 - arq - feature - object pool
+v00.04 - arq - feature - threadutils
+v00.04 - arq - feature - stringutils.intToString
+
+v00.03 - suricata - feature - TM metadata - parameters
+v00.03 - suricata - feature - data - Expected Exceptions support
+v00.03 - suricata - feature - data - Double support
+v00.03 - suricata - feature - api
+
+v00.03 - ERS
+v00.03 - suricata - refactor - rename from arq.testingframework to suricata
+v00.03 - suricata - refactor - unique identifiers for TestCase, TestSuite and TestException
+v00.03 - suricata - refactor - read metadata + read data
+v00.03 - suricata - refactor - DAO - readSource (Gets the File and convert it to WorkBook)
+v00.03 - suricata - refactor - new package: spreadsheet
+v00.03 - core - added StringUtils.removeChar
+v00.03 - core - added core.model.exception.NotTestedException
+v00.03 - core - added core.model.IntegerVO
+v00.03 - core - added core.model.exception.BadDataFormatException
+v00.03 - core - added core.model.exception.BadNumericFormatException
+v00.03 - core - added core.model.exception.NotImplementedException
+
+v00.02 - suricata - feature - data - List support
+v00.02 - suricata - feature - data - Map support
+v00.02 - suricata - feature - data - Integer support
+v00.02 - suricata - feature - data - String support
+v00.02 - suricata - feature - data - Boolean support
+v00.02 - suricata - feature - data - Bean population : n-levels
+v00.02 - suricata - feature - new translating mode: Object Data Type
+v00.02 - suricata - feature - null values supported
+v00.02 - suricata - feature - XLSX format supported
+v00.02 - suricata - feature - XLS format supported
+
+v00.02 - core - added core.model.user
+v00.02 - core - added core.model.person
+v00.02 - suricata - refactor - from business layer to dao layer
+v00.02 - suricata - refactor - 1 TestModuleDAO implementation, 2 TestSuiteDAO implementations (1 for each mode)
+v00.02 - suricata - refactor - old translating mode renamed to Primitive Data Type
+
+v00.01.02 - htic - Refactor from es.htic to com.htic
+
+v00.01.01 - htic - Refactor
+
+v00.01 - htic - First working artifact
+
+
+KNOWN BUGS
+[Internal] v00.03 - suricata - model - equalsTo - FIXME: checkTestModules
+equalsTo is delegated to Object.equals, which will return an unexpected false compare to different instances with the same data.
+
+
+ROADMAP
+v00.05 - suricata - ss - Leer parámetros desde pestaña de la propia hoja excel
+v00.05 - suricata - new read mode - templates - hard outside template, new hard inside template and new soft template (
+		=> This will allow variable number of description cells for each TS.
+v00.06 - suricata - feature - File format - ODS support
+v00.06 - suricata - feature - data - Date support
+v00.06 - suricata - feature - data - Calendar support
+v00.06 - suricata - feature - data - enum support
+
+v00.07 - suricata - refactor - extract constants to a file
+v00.07 - suricata - new read mode: auto, mix primitive and object data type----WTF, only one read mode. ?????? - why odt, pdt and auto? shouldn't be better only one?
+v00.07 - suricata - deprecated mayor feature - SuricataBaseTest
+v00.07 - suricata - deprecated mayor feature - SuricataBaseTest - Hollywood principle
+v00.07 - suricata - refactor - framework exception handle
+
+v01.00 - htic - web modules: core, suricata...
+
+v? - suricata - 2 steps: data reader as string, data interpreter
+v? - suricata - Refactor: ODT y PDT pierden Type: OD y PD
+v? - suricata - Añadir campo de restricciones para el test suite
