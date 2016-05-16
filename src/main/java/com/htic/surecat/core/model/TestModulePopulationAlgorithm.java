@@ -1,5 +1,10 @@
 package com.htic.surecat.core.model;
 
+/**
+ * @deprecated, there is no point not to use ODT
+ * @author jcalvo
+ */
+@Deprecated
 public enum TestModulePopulationAlgorithm {
 
 	PDT, ODT, AUTO;

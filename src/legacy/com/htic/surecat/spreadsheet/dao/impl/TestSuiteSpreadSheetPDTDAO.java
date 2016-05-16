@@ -8,6 +8,10 @@ import com.htic.surecat.api.TestSuite;
 import com.htic.surecat.spreadsheet.model.TemplateSpreadSheet;
 import com.htic.surecat.spreadsheet.model.TestSourceSpreadSheet;
 
+/**
+ * @deprecated, use TestSuiteSpreadSheetDAOODT
+ */
+@Deprecated
 public class TestSuiteSpreadSheetPDTDAO extends TestSuiteSpreadSheetBaseDAO {
 
 	private TestCaseSpreadSheetPDTDAO testCaseDAO;

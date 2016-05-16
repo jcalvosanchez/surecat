@@ -6,6 +6,6 @@ import com.htic.surecat.api.TestSuite;
 
 public interface TestCaseDAO {
 
-	public TestCase populateTestCase(TestSource testSource, TestSuite testSuite, String testCaseCode) throws Exception;
+//	public TestCase populateTestCase(TestSource testSource, TestSuite testSuite, String testCaseCode) throws Exception;
 
 }

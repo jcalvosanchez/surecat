@@ -1,4 +1,4 @@
-package com.htic.surecat.spreadsheet.dao.impl;
+package com.htic.surecat.spreadsheet.dao;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -10,18 +10,18 @@ import com.htic.surecat.api.TestExceptionExpected;
 import com.htic.surecat.api.TestModule;
 import com.htic.surecat.api.TestSource;
 import com.htic.surecat.api.TestSuite;
-import com.htic.surecat.core.dao.TestModuleDAO;
+import com.htic.surecat.core.dao.TestModuleDao;
 import com.htic.surecat.core.model.TestSourceException;
 import com.htic.surecat.spreadsheet.model.TestSourceSpreadSheet;
 import com.htic.surecat.spreadsheet.poi.POIExcelUtils;
 
-public class TestModuleSpreadSheetDAO implements TestModuleDAO {
+public class TestModuleDaoSpreadSheet implements TestModuleDao {
 
-	private TestSuiteSpreadSheetDAO testSuiteDAO;
+	private TestSuiteDaoSpreadSheet testSuiteDao;
 
 
-	public TestModuleSpreadSheetDAO () {
-		this.setTestSuiteDAO(new TestSuiteSpreadSheetDAO());
+	public TestModuleDaoSpreadSheet () {
+		setTestSuiteDao(new TestSuiteDaoSpreadSheet());
 	}
 
 
@@ -42,15 +42,15 @@ public class TestModuleSpreadSheetDAO implements TestModuleDAO {
 		TestExceptionExpected testException;
 
 		Sheet sheet = testSource.getWorkbook().getSheetAt(0);
-		Row dataRow	= sheet.getRow(testSource.getSpreadSheetTemplate().getTestModuleTestExpectedExceptionsHeaderRow());
+		Row dataRow	= sheet.getRow(testSource.getSpreadSheetTemplate().getTestModuleExceptionHeaderPosition().getRow());
 
-		for (int dataCellIndex = testSource.getSpreadSheetTemplate().getTestModuleTestExpectedExceptionsHeaderCell() + 1; dataCellIndex < dataRow.getLastCellNum(); dataCellIndex++) {
+		for (int dataCellIndex = testSource.getSpreadSheetTemplate().getTestModuleExceptionHeaderPosition().getColumn() + 1; dataCellIndex < dataRow.getLastCellNum(); dataCellIndex++) {
 			testException = new TestExceptionExpected();
 
-			testException.setExceptionAlias(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+1, testSource.getSpreadSheetTemplate().getTestModuleTestExpectedExceptionsHeaderCell() + dataCellIndex));
-			testException.setExceptionPackage(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+2, testSource.getSpreadSheetTemplate().getTestModuleTestExpectedExceptionsHeaderCell() + dataCellIndex));
-			testException.setExceptionClassName(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+3, testSource.getSpreadSheetTemplate().getTestModuleTestExpectedExceptionsHeaderCell() + dataCellIndex));
-			testException.setExceptionDescription(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+4, testSource.getSpreadSheetTemplate().getTestModuleTestExpectedExceptionsHeaderCell() + dataCellIndex));
+			testException.setExceptionAlias(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+1, testSource.getSpreadSheetTemplate().getTestModuleExceptionHeaderPosition().getColumn() + dataCellIndex));
+			testException.setExceptionPackage(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+2, testSource.getSpreadSheetTemplate().getTestModuleExceptionHeaderPosition().getColumn() + dataCellIndex));
+			testException.setExceptionClassName(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+3, testSource.getSpreadSheetTemplate().getTestModuleExceptionHeaderPosition().getColumn() + dataCellIndex));
+			testException.setExceptionDescription(POIExcelUtils.getStringValue(sheet, dataRow.getRowNum()+4, testSource.getSpreadSheetTemplate().getTestModuleExceptionHeaderPosition().getColumn() + dataCellIndex));
 
 			if (testExceptions.get(testException.getExceptionAlias()) != null) {
 				throw new TestSourceException(TestSourceException.TESTEXCEPTIONS_NOT_UNIQUE_IDENTIFIER);
@@ -65,15 +65,11 @@ public class TestModuleSpreadSheetDAO implements TestModuleDAO {
 	}
 
 	private TestModule populateTestModuleData(TestSourceSpreadSheet testSource, TestModule testModule) throws Exception {
-
 		Map<String, TestSuite> testSuites	= new HashMap<String, TestSuite> ();
 		TestSuite testSuite					= null;
 
 		for (int sheetIndex = testSource.getSpreadSheetTemplate().getTestSuiteFirstSheet(); sheetIndex < testSource.getWorkbook().getNumberOfSheets(); sheetIndex++) {
-
-			String testSuiteCode = testSource.getWorkbook().getSheetAt(sheetIndex).getSheetName();
-
-			testSuite = testSuiteDAO.populateTestSuite(testSource, testModule, testSuiteCode);
+			testSuite = testSuiteDao.populateTestSuite(testSource.getSpreadSheetTemplate(), testSource.getWorkbook().getSheet(testSource.getWorkbook().getSheetAt(sheetIndex).getSheetName()));
 
 			if (testSuite != null) {
 				if (testSuites.get(testSuite.getCode()) != null) {
@@ -91,10 +87,10 @@ public class TestModuleSpreadSheetDAO implements TestModuleDAO {
 
 
 	//Getters && Setters
-	public TestSuiteSpreadSheetDAO getTestSuiteDAO() {
-		return testSuiteDAO;
+	public TestSuiteDaoSpreadSheet getTestSuiteDao() {
+		return testSuiteDao;
 	}
-	public void setTestSuiteDAO(TestSuiteSpreadSheetDAO testSuiteDAO) {
-		this.testSuiteDAO = testSuiteDAO;
+	public void setTestSuiteDao(TestSuiteDaoSpreadSheet testSuiteDao) {
+		this.testSuiteDao = testSuiteDao;
 	}
 }

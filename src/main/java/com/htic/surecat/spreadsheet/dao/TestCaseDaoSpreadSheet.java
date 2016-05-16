@@ -1,4 +1,4 @@
-package com.htic.surecat.spreadsheet.dao.impl;
+package com.htic.surecat.spreadsheet.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,39 +6,27 @@ import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Sheet;
 
-import com.htic.hticarq.core.model.exception.NotImplementedException;
 import com.htic.hticarq.core.util.BeanUtils;
 import com.htic.surecat.api.TestCase;
-import com.htic.surecat.api.TestSource;
 import com.htic.surecat.api.TestSuite;
+import com.htic.surecat.core.dao.TestCaseDAO;
 import com.htic.surecat.core.model.TestCaseAttribute;
-import com.htic.surecat.spreadsheet.dao.TestCaseSpreadSheetDAO;
 import com.htic.surecat.spreadsheet.model.TemplateSpreadSheet;
-import com.htic.surecat.spreadsheet.model.TestSourceSpreadSheet;
 import com.htic.surecat.spreadsheet.poi.POIExcelUtils;
 
-public class TestCaseSpreadSheetODTDAO implements TestCaseSpreadSheetDAO {
+public class TestCaseDaoSpreadSheet implements TestCaseDAO {
 
-	@Override
-	public TestCase populateTestCase(TestSource testSource, TestSuite testSuite, int dataRowIndex) throws Exception {
-		TestCase testCase;
-		Map<String, Object> testCaseData;
+	public TestCase populateTestCase(TestSuite testSuite, TemplateSpreadSheet spreadSheetTemplate, Sheet sheet, int dataRowIndex) throws Exception {
+		TestCase testCase = new TestCase();
+		Map<String, Object> testCaseData = new HashMap<String, Object>();
 		boolean isPreviouslyInstantiated;
 		TestCaseAttribute testCaseAttribute;
 		Object classInstance;
 
-		testCase			= new TestCase ();
-		testCaseData		= new HashMap<String, Object>();
-		testCaseData.clear();
-
-		Sheet sheet								= ((TestSourceSpreadSheet)testSource).getWorkbook().getSheet(testSuite.getCode());
-		TemplateSpreadSheet spreadSheetTemplate = ((TestSourceSpreadSheet)testSource).getSpreadSheetTemplate();
-
-		for (int i = 0; i < testSuite.getTestCaseAttributes().size() && spreadSheetTemplate.getTestCaseIdCell() + 1 + i < sheet.getRow(dataRowIndex).getLastCellNum(); i++) {
-			
+		for (int i = 0; i < testSuite.getTestCaseAttributes().size() && spreadSheetTemplate.getTestCaseCodePosition().getColumn() + 1 + i < sheet.getRow(dataRowIndex).getLastCellNum(); i++) {
 			testCaseAttribute = testSuite.getTestCaseAttributes().get(i);
 
-			testCaseAttribute.setAttributeValue(POIExcelUtils.getStringValue(sheet, dataRowIndex, spreadSheetTemplate.getTestCaseIdCell() + 1 + i));
+			testCaseAttribute.setAttributeValue(POIExcelUtils.getStringValue(sheet, dataRowIndex, spreadSheetTemplate.getTestCaseCodePosition().getColumn() + 1 + i));
 
 			testCaseAttribute = POIExcelUtils.recoverAttributeValue (testCaseAttribute);
 
@@ -78,13 +66,8 @@ public class TestCaseSpreadSheetODTDAO implements TestCaseSpreadSheetDAO {
 		}
 
 		testCase.setData(testCaseData);
-		testCase.setCode(POIExcelUtils.getStringValue(sheet, dataRowIndex, spreadSheetTemplate.getTestCaseIdCell()));
+		testCase.setCode(POIExcelUtils.getStringValue(sheet, dataRowIndex, spreadSheetTemplate.getTestCaseCodePosition().getColumn()));
 
 		return testCase;
-	}
-
-	@Override
-	public TestCase populateTestCase(TestSource testSource, TestSuite testSuite, String testCaseCode) throws Exception {
-		throw new NotImplementedException();
 	}
 }

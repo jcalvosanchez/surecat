@@ -6,9 +6,10 @@ code update
 20160509 - v00.05 - released
 
 WIP=2
-20151004 - 20151004 - 20160505 - v00.05 - suricata - feature - properties file
+
 
 CHANGELOG
+20151004 - 20151004 - 20160505 - v00.05 - suricata - feature - properties file
 20160515 - 20160515 - 20160515 - v00.05 - Release as open source - kill hticarq dependency
 20160505 - 20160509 - 20160509 - v00.05 - suricata - refactor - primefactors dependency killed
 20160505 - 20160505 - 20160505 - v00.05 - suricata - refactor - java 8 support

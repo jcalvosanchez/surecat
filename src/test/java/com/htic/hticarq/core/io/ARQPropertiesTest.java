@@ -2,7 +2,11 @@ package com.htic.hticarq.core.io;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Properties;
+
 import org.junit.Test;
+
+import com.htic.hticarq.core.util.ARQPropertiesUtil;
 
 public class ARQPropertiesTest {
 
@@ -10,15 +14,14 @@ public class ARQPropertiesTest {
 
 
 	@Test
-	public void loadPropertiesFromFileTest() throws Exception {
-		ARQProperties arqProperties = new ARQProperties();
-		arqProperties.loadPropertiesFromFile(PROPERTIESFILEPATH);
+	public void testGetPropertiesFromFile() throws Exception {
+		Properties properties = ARQPropertiesUtil.getPropertiesFromFile(PROPERTIESFILEPATH);
 
-		assertEquals("src/test/resources/com/htic/arq/core/util/arq-utils.xls", arqProperties.getProperty("suricata.testsource.spreadsheet.filepath"));
-		assertEquals("TS-StringUtils.removeChar", arqProperties.getProperty("stringutils.removechar"));
-		assertEquals("stringChain", arqProperties.getProperty("stringutils.removechar.stringchain"));
-		assertEquals("character", arqProperties.getProperty("stringutils.removechar.character"));
-		assertEquals("result", arqProperties.getProperty("stringutils.removechar.result"));
+		assertEquals("src/test/resources/arq-utils.xls", properties.getProperty("suricata.testsource.spreadsheet.filepath"));
+		assertEquals("TS-StringUtils.removeChar", properties.getProperty("stringutils.removechar"));
+		assertEquals("stringChain", properties.getProperty("stringutils.removechar.stringchain"));
+		assertEquals("character", properties.getProperty("stringutils.removechar.character"));
+		assertEquals("result", properties.getProperty("stringutils.removechar.result"));
 	}
 
 }
