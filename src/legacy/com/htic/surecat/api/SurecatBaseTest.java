@@ -3,6 +3,9 @@ package com.htic.surecat.api;
 import com.htic.hticarq.core.model.exception.NotImplementedException;
 import com.htic.surecat.spreadsheet.api.TestSourcePoolSpreadSheet;
 
+/**
+ * Deprecated, use composition instead of inheritance.
+ */
 @Deprecated
 public class SurecatBaseTest {
 

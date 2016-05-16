@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import com.htic.surecat.core.model.TestCaseAttribute;
 
-public class POIExcelUtils extends com.htic.suricataarq.poi.util.POIExcelUtils {
+public class POIExcelUtils extends com.htic.hticarq.poi.util.POIExcelUtils {
 
 	public static final int FILE_FORMAT_EXCEL_1997	= 1;
 	public static final int FILE_FORMAT_EXCEL_2003	= 2;

@@ -1,4 +1,4 @@
-package com.htic.suricataarq.poi.util;
+package com.htic.hticarq.poi.util;
 
 import java.io.File;
 import java.io.FileInputStream;
